@@ -1,5 +1,6 @@
 import Canvas from './engine/canvas';
 import Svg from './engine/svg';
+import './styles/style.css';
 
 export default class FlowChart {
 	constructor(rType, wrapper, id, width, height) {

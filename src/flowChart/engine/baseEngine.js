@@ -8,14 +8,7 @@ export default class baseEngine {
 		this.moveable = false;
 		this.createdShapes = new Map();
 
-		this.addStyles();
 		this.wrapper.classList.add('flowChartWrapper');
-	}
-	addStyles() {
-		const linkElement = document.createElement('link');
-		linkElement.rel = 'stylesheet';
-		linkElement.href = './src/flowChart/styles/style.css';
-		document.head.appendChild(linkElement);
 	}
 	add(shape) {
 		this.createdShapes.set(window.crypto.randomUUID(), shape);
