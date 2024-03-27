@@ -89,22 +89,29 @@ export default class Canvas extends baseEngine {
 
 	init() {
 		const canvasEl = document.createElement('canvas');
+
 		canvasEl.id = this.id;
 		canvasEl.width = this.width;
 		canvasEl.height = this.height;
 		canvasEl.textContent =
 			'This is a canvas element. If you see this probably your browser does not support canvas element.';
-		this.wrapper.appendChild(canvasEl);
+
 		this.canvasInstance = canvasEl;
 		this.ctx = this.canvasInstance.getContext('2d');
 		this.canvasInstance.addEventListener('pointerdown', this.handlePointerDown);
 		this.canvasInstance.addEventListener('pointerup', this.handlePointerUp);
 		this.canvasInstance.addEventListener('pointermove', this.handlePointerMove);
+
+		this.sceneWrapper.appendChild(canvasEl);
+		this.wrapper.appendChild(this.sceneWrapper);
+
 		addRetinaSupport({
 			canvas: this.canvasInstance,
 			ctx: this.ctx,
-			size: this.width,
+			width: this.width,
+			height: this.height,
 		});
+
 		this.addActions();
 	}
 }

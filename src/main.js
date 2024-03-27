@@ -55,7 +55,7 @@ function handleButtonClick(e) {
 }
 
 function init() {
-	engine = new Engine('canvas', '.wrapper', 'cnvs', 2500, 2500);
+	engine = new Engine('canvas', '#wrapper', 'cnvs', 2500, 2500);
 
 	buttons.forEach((button) =>
 		button.addEventListener('click', (e) => handleButtonClick(e))

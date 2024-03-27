@@ -8,6 +8,14 @@ export default class baseEngine {
 		this.moveable = false;
 		this.createdShapes = new Map();
 
+		const sceneWrapperEl = document.createElement('div');
+		sceneWrapperEl.classList.add('flowChartSceneWrapper');
+		sceneWrapperEl.style.width = `${this.width}px`;
+		sceneWrapperEl.style.height = `${this.height}px`;
+		this.sceneWrapper = sceneWrapperEl;
+
+		this.wrapper.style.width = `${this.width}px`;
+		this.wrapper.style.height = `${this.height}px`;
 		this.wrapper.classList.add('flowChartWrapper');
 	}
 	add(shape) {
