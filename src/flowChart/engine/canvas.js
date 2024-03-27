@@ -70,16 +70,20 @@ export default class Canvas extends baseEngine {
 				this.ctx.strokeRect(shape.sX, shape.sY, shape.width, shape.height);
 				this.ctx.closePath();
 			}
+
+			if (shape.text) {
+				this.ctx.font = shape.font;
+				this.ctx.fillStyle = shape.color;
+				this.ctx.textBaseline = 'middle';
+				this.ctx.fillText(
+					shape.text,
+					shape.sX + shape.width / 4,
+					shape.sY + shape.height / 2
+				);
+			}
+
 			this.ctx.restore();
 		});
-		// this.ctx.font = this.font;
-		// this.ctx.fillStyle = this.color;
-		// this.ctx.fillText(
-		// 	'Start/End',
-		// 	this.sX + this.borderRadius,
-		// 	this.sY + this.height / 2,
-		// 	this.width
-		// );
 	}
 
 	init() {

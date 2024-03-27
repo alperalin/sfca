@@ -11,7 +11,7 @@ export const defaultShapeSpecs = {
 	borderRadius: 0,
 	angle: 0,
 	text: '',
-	font: '28px serif',
+	font: '16px serif',
 	outline: false,
 	outlineBorderWidth: 1,
 	outlineBorderColor: '#3498DB',

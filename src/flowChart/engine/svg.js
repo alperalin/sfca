@@ -15,6 +15,7 @@ export default class Svg extends baseEngine {
 		this.clear();
 		let newSvgGroup = [];
 		let newPath = '';
+		let newText = '';
 
 		this.createdShapes.forEach((shape) => {
 			let newSvg = document.createElementNS(
@@ -22,6 +23,7 @@ export default class Svg extends baseEngine {
 				'svg'
 			);
 			newPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+			newText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
 			let newPathD = '';
 
 			newPath.setAttribute('fill', shape.backgroundColor);
@@ -55,7 +57,26 @@ export default class Svg extends baseEngine {
 			if (shape.outline)
 				newPath.style.outline = `${shape.outlineBorderWidth}px solid ${shape.outlineBorderColor}`;
 
+			// Text Content
+			if (shape.text) {
+				newText.setAttribute('x', shape.sX + shape.width / 4);
+				newText.setAttribute('y', shape.sY + shape.height / 2);
+				newText.style['user-select'] = 'none';
+
+				// Rotation
+
+				newText.setAttribute(
+					'transform',
+					`rotate(${shape.angle} ${shape.sX + shape.width / 2} ${
+						shape.sY + shape.height / 2
+					})`
+				);
+
+				newText.textContent = shape.text;
+			}
+
 			newSvg.appendChild(newPath);
+			newSvg.appendChild(newText);
 			newSvgGroup.push(newSvg);
 		});
 
