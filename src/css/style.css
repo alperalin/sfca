@@ -83,8 +83,6 @@ body {
 }
 
 .wrapper {
-	background: transparent url('/assets/square-05-border.svg') top left repeat;
-	background-size: 16px;
 	max-width: 100vw;
 	width: 100%;
 	height: 100vh;
