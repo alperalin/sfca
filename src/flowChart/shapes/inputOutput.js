@@ -1,62 +1,80 @@
-import BaseShape from './baseShape';
+import BaseShape, { defaultShapeSpecs } from './baseShape';
 
 export default class InputOutput extends BaseShape {
-	constructor(name, sX, sY) {
-		super(name, sX, sY);
-		this.name = name;
+	constructor({
+		sX = defaultShapeSpecs.sX,
+		sY = defaultShapeSpecs.sY,
+		width = 150,
+		height = 75,
+		text = 'Input/Output',
+		backgroundColor = defaultShapeSpecs.backgroundColor,
+		color = defaultShapeSpecs.color,
+		borderWidth = defaultShapeSpecs.borderWidth,
+		borderColor = defaultShapeSpecs.borderColor,
+		borderRadius = 4,
+		angle = defaultShapeSpecs.angle,
+	}) {
+		super(
+			sX,
+			sY,
+			width,
+			height,
+			text,
+			backgroundColor,
+			color,
+			borderWidth,
+			borderColor,
+			borderRadius,
+			angle
+		);
+
+		this.type = 'inputOutput';
 		this.sX = sX;
 		this.sY = sY;
-		this.type = 'inputOutput';
-		this.props.borderRadius = 4;
+		this.text = text;
+		this.width = width;
+		this.height = height;
+		this.backgroundColor = backgroundColor;
+		this.color = color;
+		this.borderWidth = borderWidth;
+		this.borderColor = borderColor;
+		this.borderRadius = borderRadius;
+		this.angle = angle;
 	}
 
 	get coordinates() {
 		return [
-			['M', this.sX + 20 + this.props.borderRadius, this.sY],
+			['M', this.sX + 20 + this.borderRadius, this.sY],
+			['L', this.sX + this.width - this.borderRadius, this.sY],
+			[
+				'Q',
+				this.sX + this.width,
+				this.sY,
+				this.sX + this.width,
+				this.sY + this.borderRadius,
+			],
 			[
 				'L',
-				this.sX + this.measurements.width - this.props.borderRadius,
-				this.sY,
+				this.sX + this.width - 20,
+				this.sY + this.height - this.borderRadius,
 			],
 			[
 				'Q',
-				this.sX + this.measurements.width,
-				this.sY,
-				this.sX + this.measurements.width,
-				this.sY + this.props.borderRadius,
+				this.sX + this.width - 20,
+				this.sY + this.height,
+				this.sX + this.width - 20 - this.borderRadius,
+				this.sY + this.height,
 			],
-			[
-				'L',
-				this.sX + this.measurements.width - 20,
-				this.sY + this.measurements.height - this.props.borderRadius,
-			],
-			[
-				'Q',
-				this.sX + this.measurements.width - 20,
-				this.sY + this.measurements.height,
-				this.sX + this.measurements.width - 20 - this.props.borderRadius,
-				this.sY + this.measurements.height,
-			],
-			[
-				'L',
-				this.sX + this.props.borderRadius,
-				this.sY + this.measurements.height,
-			],
+			['L', this.sX + this.borderRadius, this.sY + this.height],
 			[
 				'Q',
 				this.sX,
-				this.sY + this.measurements.height,
+				this.sY + this.height,
 				this.sX,
-				this.sY + this.measurements.height - this.props.borderRadius,
+				this.sY + this.height - this.borderRadius,
 			],
-			['L', this.sX + 20, this.sY + this.props.borderRadius],
-			[
-				'Q',
-				this.sX + 20,
-				this.sY,
-				this.sX + 20 + this.props.borderRadius,
-				this.sY,
-			],
+			['L', this.sX + 20, this.sY + this.borderRadius],
+			['Q', this.sX + 20, this.sY, this.sX + 20 + this.borderRadius, this.sY],
 		];
 	}
 }

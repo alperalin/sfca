@@ -30,13 +30,13 @@ export default class Canvas extends baseEngine {
 
 			// Rotation
 			this.ctx.translate(
-				shape.sX + shape.measurements.width / 2,
-				shape.sY + shape.measurements.height / 2
+				shape.sX + shape.width / 2,
+				shape.sY + shape.height / 2
 			); // translate to center
-			this.ctx.rotate((Math.PI / 180) * shape.props.rotateDeg); // rotate
+			this.ctx.rotate((Math.PI / 180) * shape.angle); // rotate
 			this.ctx.translate(
-				-(shape.sX + shape.measurements.width / 2),
-				-(shape.sY + shape.measurements.height / 2)
+				-(shape.sX + shape.width / 2),
+				-(shape.sY + shape.height / 2)
 			); // translate back
 
 			shape.coordinates.forEach((coordinate) => {
@@ -57,33 +57,28 @@ export default class Canvas extends baseEngine {
 						break;
 				}
 			});
-			this.ctx.fillStyle = shape.props.backgroundColor;
+			this.ctx.fillStyle = shape.backgroundColor;
 			this.ctx.fill();
-			this.ctx.lineWidth = shape.props.borderWidth;
-			this.ctx.strokeStyle = shape.props.borderColor;
+			this.ctx.lineWidth = shape.borderWidth;
+			this.ctx.strokeStyle = shape.borderColor;
 			this.ctx.stroke();
 			this.ctx.closePath();
-			if (shape.props.outline.show) {
+			if (shape.outline) {
 				this.ctx.beginPath();
-				this.ctx.lineWidth = shape.props.outline.borderWidth;
-				this.ctx.strokeStyle = shape.props.outline.borderColor;
-				this.ctx.strokeRect(
-					shape.sX,
-					shape.sY,
-					shape.measurements.width,
-					shape.measurements.height
-				);
+				this.ctx.lineWidth = shape.outlineBorderWidth;
+				this.ctx.strokeStyle = shape.outlineBorderColor;
+				this.ctx.strokeRect(shape.sX, shape.sY, shape.width, shape.height);
 				this.ctx.closePath();
 			}
 			this.ctx.restore();
 		});
-		// this.ctx.font = this.props.font;
-		// this.ctx.fillStyle = this.props.color;
+		// this.ctx.font = this.font;
+		// this.ctx.fillStyle = this.color;
 		// this.ctx.fillText(
 		// 	'Start/End',
-		// 	this.coordinates.x + this.props.borderRadius,
-		// 	this.coordinates.y + this.measurements.height / 2,
-		// 	this.measurements.width
+		// 	this.sX + this.borderRadius,
+		// 	this.sY + this.height / 2,
+		// 	this.width
 		// );
 	}
 

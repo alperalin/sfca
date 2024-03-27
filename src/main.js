@@ -4,9 +4,6 @@ import {
 	Process,
 	InputOutput,
 	Arrow,
-	defaultShapeSpecs,
-	defaultArrowSpecs,
-	defaultDecisionSpecs,
 } from './flowChart/shapes';
 import Engine from './flowChart';
 
@@ -14,31 +11,25 @@ const app = document.getElementById('app');
 const buttons = document.querySelectorAll('.tools .button');
 let engine = undefined;
 
-function createShape({
-	type,
-	pointerX,
-	pointerY,
-	measurements = { ...defaultShapeSpecs.measurements },
-	props = { ...defaultShapeSpecs.props },
-}) {
+function createShape({ type, pointerX, pointerY }) {
 	switch (type) {
 		case 'startEnd':
-			engine.renderer.add(new StartEnd('startEnd', pointerX, pointerY));
+			engine.renderer.add(new StartEnd({ sX: pointerX, sY: pointerY }));
 			break;
 		case 'decision':
-			engine.renderer.add(new Decision('decision', pointerX, pointerY));
+			engine.renderer.add(new Decision({ sX: pointerX, sY: pointerY }));
 			break;
 		case 'process':
-			engine.renderer.add(new Process('process', pointerX, pointerY));
+			engine.renderer.add(new Process({ sX: pointerX, sY: pointerY }));
 			break;
 		case 'inputOutput':
-			engine.renderer.add(new InputOutput('inputOutput', pointerX, pointerY));
+			engine.renderer.add(new InputOutput({ sX: pointerX, sY: pointerY }));
 			break;
 		case 'arrow':
-			engine.renderer.add(new Arrow('arrow', pointerX, pointerY));
+			engine.renderer.add(new Arrow({ sX: pointerX, sY: pointerY }));
 			break;
 		default:
-			console.log("There isn't a shape with this type.");
+			console.log(`FlowChart does not have a shape with this ${type} type.`);
 	}
 }
 

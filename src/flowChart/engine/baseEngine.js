@@ -1,3 +1,5 @@
+import { StartEnd, Decision, InputOutput, Process, Arrow } from '../shapes';
+
 export default class baseEngine {
 	constructor(wrapper, id, width, height) {
 		this.wrapper = wrapper;
@@ -22,10 +24,10 @@ export default class baseEngine {
 		this.createdShapes.set(window.crypto.randomUUID(), shape);
 		this.render();
 	}
-	rotateShape = (deg) => {
+	rotateShape = (angle) => {
 		if (this.selectedShape) {
 			const shape = this.createdShapes.get(this.selectedShape.key);
-			shape.props.rotateDeg += deg;
+			shape.angle += angle;
 			this.render();
 		}
 	};
@@ -65,7 +67,29 @@ export default class baseEngine {
 		const reader = new FileReader();
 		reader.addEventListener('load', () => {
 			const shapes = JSON.parse(reader.result);
-			shapes.forEach((shape) => this.add(shape));
+			shapes.forEach((shape) => {
+				switch (shape.type) {
+					case 'startEnd':
+						this.add(new StartEnd({ ...shape }));
+						break;
+					case 'decision':
+						this.add(new Decision({ ...shape }));
+						break;
+					case 'process':
+						this.add(new Process({ ...shape }));
+						break;
+					case 'inputOutput':
+						this.add(new InputOutput({ ...shape }));
+						break;
+					case 'arrow':
+						this.add(new Arrow({ ...shape }));
+						break;
+					default:
+						console.log(
+							`FlowChart does not have a shape with this ${shape?.type} type.`
+						);
+				}
+			});
 		});
 		reader.readAsText(file);
 	};
@@ -141,15 +165,15 @@ export default class baseEngine {
 		this.createdShapes.forEach((shape, key) => {
 			if (
 				pX >= shape.sX &&
-				pX <= shape.sX + shape.measurements.width &&
+				pX <= shape.sX + shape.width &&
 				pY >= shape.sY &&
-				pY <= shape.sY + shape.measurements.height &&
+				pY <= shape.sY + shape.height &&
 				!found
 			) {
 				found = { key, shape };
-				shape.props.outline.show = true;
+				shape.outline = true;
 			} else {
-				shape.props.outline.show = false;
+				shape.outline = false;
 			}
 			this.render();
 		});

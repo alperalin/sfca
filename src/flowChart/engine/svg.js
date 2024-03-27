@@ -16,8 +16,6 @@ export default class Svg extends baseEngine {
 		let newSvgGroup = [];
 		let newPath = '';
 
-		console.log(this.createdShapes);
-
 		this.createdShapes.forEach((shape) => {
 			let newSvg = document.createElementNS(
 				'http://www.w3.org/2000/svg',
@@ -26,10 +24,9 @@ export default class Svg extends baseEngine {
 			newPath = document.createElementNS('http://www.w3.org/2000/svg', 'path');
 			let newPathD = '';
 
-			newSvg.id = shape.name;
-			newPath.setAttribute('fill', shape.props.backgroundColor);
-			newPath.setAttribute('stroke', shape.props.borderColor);
-			newPath.setAttribute('stroke-width', shape.props.borderWidth);
+			newPath.setAttribute('fill', shape.backgroundColor);
+			newPath.setAttribute('stroke', shape.borderColor);
+			newPath.setAttribute('stroke-width', shape.borderWidth);
 
 			shape.coordinates.forEach((coordinate) => {
 				switch (coordinate[0]) {
@@ -49,13 +46,14 @@ export default class Svg extends baseEngine {
 			// Rotation
 			newPath.setAttribute(
 				'transform',
-				`rotate(${shape.props.rotateDeg} ${
-					shape.sX + shape.measurements.width / 2
-				} ${shape.sY + shape.measurements.height / 2})`
+				`rotate(${shape.angle} ${shape.sX + shape.width / 2} ${
+					shape.sY + shape.height / 2
+				})`
 			);
 
-			if (shape.props.outline.show)
-				newPath.style.outline = `${shape.props.outline.borderWidth}px solid ${shape.props.outline.borderColor}`;
+			// Outline
+			if (shape.outline)
+				newPath.style.outline = `${shape.outlineBorderWidth}px solid ${shape.outlineBorderColor}`;
 
 			newSvg.appendChild(newPath);
 			newSvgGroup.push(newSvg);
