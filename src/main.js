@@ -4,8 +4,8 @@ import {
 	Process,
 	InputOutput,
 	Arrow,
-} from './flowChart/shapes';
-import Engine from './flowChart';
+} from '../flowChart/shapes';
+import Engine from '../flowChart';
 
 const app = document.getElementById('app');
 const buttons = document.querySelectorAll('.tools .button');
