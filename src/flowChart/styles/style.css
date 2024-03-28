@@ -137,3 +137,24 @@ svg {
 	border: 0;
 	outline: 0;
 }
+
+.textInput {
+	background-color: #f9f9f9;
+	font-size: 13px;
+	color: #121212;
+	margin-bottom: 0;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	padding: 16px 8px;
+	cursor: pointer;
+	transition: border-color 0.25s;
+}
+
+.textInput:hover {
+	border-color: #646cff;
+}
+
+.textInput:focus,
+.textInput:focus-visible {
+	outline: 4px auto -webkit-focus-ring-color;
+}

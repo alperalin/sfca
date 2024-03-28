@@ -49,9 +49,14 @@ export default class BaseShape {
 		this.outlineBorderColor = defaultShapeSpecs.outlineBorderColor;
 	}
 
+	setText = (value) => {
+		this.text = value;
+	};
+
 	get values() {
 		return {
 			type: this.type,
+			text: this.text,
 			sX: this.sX,
 			sY: this.sY,
 			width: this.width,

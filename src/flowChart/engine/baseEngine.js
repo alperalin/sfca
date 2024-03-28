@@ -98,6 +98,14 @@ export default class baseEngine {
 		const actionsContainer = document.createElement('div');
 		actionsContainer.classList.add('actions');
 
+		// Text Input
+		const textInput = document.createElement('input');
+		textInput.type = 'text';
+		textInput.id = 'textInput';
+		textInput.classList.add('textInput');
+		textInput.setAttribute('disabled', true);
+		textInput.addEventListener('keyup', this.editText);
+		this.actionsButtons.push(textInput);
 		// Delete Button
 		const deleteButton = document.createElement('button');
 		deleteButton.id = 'delete';
@@ -197,6 +205,7 @@ export default class baseEngine {
 		if (this.selectedShape) {
 			this.moveable = true;
 		}
+		this.setInitialText();
 	};
 	handlePointerUp = (e) => {
 		this.moveable = false;
@@ -214,6 +223,17 @@ export default class baseEngine {
 		this.actionsButtons.forEach((button) => {
 			if (toggle) button.removeAttribute('disabled');
 			else button.setAttribute('disabled', true);
+		});
+	};
+	editText = (e) => {
+		this.selectedShape?.shape?.setText(e.target.value);
+		this.render();
+	};
+	setInitialText = () => {
+		this.actionsButtons.forEach((button) => {
+			if (button.id === 'textInput') {
+				button.value = this.selectedShape?.shape?.text || '';
+			}
 		});
 	};
 	render() {}
