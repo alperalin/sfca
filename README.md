@@ -19,8 +19,8 @@ This is a simple flowchart app. It has five predefined shapes and two render eng
 Import the engine and shapes from the flowchart. Create a new engine based on your configurations. And then add the shapes to the engine's renderer.
 
 ```js
-import { StartEnd } from '../flowChart/shapes';
-import Engine from '../flowChart';
+import { StartEnd } from './flowChart/shapes';
+import Engine from './flowChart';
 
 engine = new Engine('canvas', '#wrapper', 'cnvs', 2500, 2500);
 
@@ -84,3 +84,7 @@ new StartEnd({
 | `borderColor`     | number             | The border color of the shape  |
 | `borderRadius`    | number             | The border radius of the shape |
 | `angle`           | number             | The rotate degree of the shape |
+
+### Import / Export
+
+The engine can export created shapes in a JSON file with their latest state. You can import that JSON file to use the same shapes later.
