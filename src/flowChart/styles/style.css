@@ -28,7 +28,6 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	align-items: center;
-	padding: 10px;
 	font-size: 13px;
 	color: #121212;
 	margin-bottom: 10px;
@@ -128,4 +127,13 @@
 canvas,
 svg {
 	cursor: pointer;
+}
+
+:disabled,
+:disabled:focus,
+:disabled:focus-within {
+	opacity: 0.7;
+	cursor: default;
+	border: 0;
+	outline: 0;
 }

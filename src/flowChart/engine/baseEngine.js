@@ -9,6 +9,7 @@ export default class baseEngine {
 		this.selectedShape = undefined;
 		this.moveable = false;
 		this.createdShapes = new Map();
+		this.actionsButtons = [];
 
 		const sceneWrapperEl = document.createElement('div');
 		sceneWrapperEl.classList.add('flowChartSceneWrapper');
@@ -94,9 +95,42 @@ export default class baseEngine {
 		reader.readAsText(file);
 	};
 	addActions() {
-		const actionsButtons = [];
 		const actionsContainer = document.createElement('div');
 		actionsContainer.classList.add('actions');
+
+		// Delete Button
+		const deleteButton = document.createElement('button');
+		deleteButton.id = 'delete';
+		deleteButton.classList.add('button', 'button--icon-start');
+		const deleteButtonIcon = document.createElement('i');
+		deleteButtonIcon.classList.add('icon', 'icon--garbage');
+		deleteButton.appendChild(deleteButtonIcon);
+		deleteButton.innerHTML += 'delete';
+		deleteButton.setAttribute('disabled', true);
+		deleteButton.addEventListener('click', this.deleteShape);
+		this.actionsButtons.push(deleteButton);
+		// Rotate Left Button
+		const rotateLeftButton = document.createElement('button');
+		rotateLeftButton.id = 'rotateLeft';
+		rotateLeftButton.classList.add('button', 'button--icon-start');
+		const rotateLeftButtonIcon = document.createElement('i');
+		rotateLeftButtonIcon.classList.add('icon', 'icon--rotate-left');
+		rotateLeftButton.appendChild(rotateLeftButtonIcon);
+		rotateLeftButton.innerHTML += 'Left';
+		rotateLeftButton.setAttribute('disabled', true);
+		rotateLeftButton.addEventListener('click', () => this.rotateShape(-15));
+		this.actionsButtons.push(rotateLeftButton);
+		// Rotate Right Button
+		const rotateRightButton = document.createElement('button');
+		rotateRightButton.id = 'rotateRight';
+		rotateRightButton.classList.add('button', 'button--icon-start');
+		const rotateRightButtonIcon = document.createElement('i');
+		rotateRightButtonIcon.classList.add('icon', 'icon--rotate-right');
+		rotateRightButton.appendChild(rotateRightButtonIcon);
+		rotateRightButton.innerHTML += 'Right';
+		rotateRightButton.setAttribute('disabled', true);
+		rotateRightButton.addEventListener('click', () => this.rotateShape(15));
+		this.actionsButtons.push(rotateRightButton);
 		// Importer Button
 		const importerLabel = document.createElement('label');
 		importerLabel.id = 'import';
@@ -113,7 +147,6 @@ export default class baseEngine {
 		importerLabel.innerHTML += 'import';
 		importerLabel.appendChild(importerInput);
 		importerInput.addEventListener('change', (e) => this.importShapes(e));
-		actionsButtons.push(importerLabel);
 		// Export Button
 		const exportButton = document.createElement('button');
 		exportButton.id = 'export';
@@ -123,41 +156,14 @@ export default class baseEngine {
 		exportButton.appendChild(exportButtonIcon);
 		exportButton.innerHTML += 'export';
 		exportButton.addEventListener('click', this.exportShapes);
-		actionsButtons.push(exportButton);
-		// Delete Button
-		const deleteButton = document.createElement('button');
-		deleteButton.id = 'delete';
-		deleteButton.classList.add('button', 'button--icon-start');
-		const deleteButtonIcon = document.createElement('i');
-		deleteButtonIcon.classList.add('icon', 'icon--garbage');
-		deleteButton.appendChild(deleteButtonIcon);
-		deleteButton.innerHTML += 'delete';
-		deleteButton.addEventListener('click', this.deleteShape);
-		actionsButtons.push(deleteButton);
-		// Rotate Left Button
-		const rotateLeftButton = document.createElement('button');
-		rotateLeftButton.id = 'rotateLeft';
-		rotateLeftButton.classList.add('button', 'button--icon-start');
-		const rotateLeftButtonIcon = document.createElement('i');
-		rotateLeftButtonIcon.classList.add('icon', 'icon--rotate-left');
-		rotateLeftButton.appendChild(rotateLeftButtonIcon);
-		rotateLeftButton.innerHTML += 'Left';
-		rotateLeftButton.addEventListener('click', () => this.rotateShape(-15));
-		actionsButtons.push(rotateLeftButton);
-		// Rotate Right Button
-		const rotateRightButton = document.createElement('button');
-		rotateRightButton.id = 'rotateRight';
-		rotateRightButton.classList.add('button', 'button--icon-start');
-		const rotateRightButtonIcon = document.createElement('i');
-		rotateRightButtonIcon.classList.add('icon', 'icon--rotate-right');
-		rotateRightButton.appendChild(rotateRightButtonIcon);
-		rotateRightButton.innerHTML += 'Right';
-		rotateRightButton.addEventListener('click', () => this.rotateShape(15));
-		actionsButtons.push(rotateRightButton);
+
 		// Add all buttons to the DOM
-		actionsButtons.forEach((button) => {
+		this.actionsButtons.forEach((button) => {
 			actionsContainer.appendChild(button);
 		});
+		actionsContainer.appendChild(importerLabel);
+		actionsContainer.appendChild(exportButton);
+
 		this.wrapper.appendChild(actionsContainer);
 	}
 	selectShape = (pX, pY) => {
@@ -177,6 +183,10 @@ export default class baseEngine {
 			}
 			this.render();
 		});
+
+		if (found) this.toggleActionButtons(true);
+		else this.toggleActionButtons(false);
+
 		return found;
 	};
 	handlePointerDown = (e) => {
@@ -199,6 +209,12 @@ export default class baseEngine {
 			this.selectedShape.shape.sY = newYPosition;
 			this.render();
 		}
+	};
+	toggleActionButtons = (toggle) => {
+		this.actionsButtons.forEach((button) => {
+			if (toggle) button.removeAttribute('disabled');
+			else button.setAttribute('disabled', true);
+		});
 	};
 	render() {}
 }
