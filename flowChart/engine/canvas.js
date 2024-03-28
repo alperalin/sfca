@@ -74,7 +74,7 @@ export default class Canvas extends baseEngine {
 			if (shape.text) {
 				this.ctx.font = shape.font;
 				this.ctx.fillStyle = shape.color;
-				this.ctx.textBaseline = 'middle';
+				if (shape.type !== 'arrow') this.ctx.textBaseline = 'middle';
 				this.ctx.fillText(
 					shape.text,
 					shape.sX + shape.width / 4,
