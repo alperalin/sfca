@@ -199,8 +199,8 @@ export default class baseEngine {
 	};
 	handlePointerDown = (e) => {
 		this.selectedShape = this.selectShape(
-			Math.floor(this.wrapper.scrollLeft + e.clientX),
-			Math.floor(this.wrapper.scrollTop + e.clientY)
+			Math.floor(this.sceneWrapper.scrollLeft + e.clientX),
+			Math.floor(this.sceneWrapper.scrollTop + e.clientY)
 		);
 		if (this.selectedShape) {
 			this.moveable = true;
@@ -212,8 +212,8 @@ export default class baseEngine {
 	};
 	handlePointerMove = (e) => {
 		if (this.selectedShape && this.moveable) {
-			const newXPosition = Math.floor(this.wrapper.scrollLeft + e.clientX);
-			const newYPosition = Math.floor(this.wrapper.scrollTop + e.clientY);
+			const newXPosition = Math.floor(this.sceneWrapper.scrollLeft + e.clientX);
+			const newYPosition = Math.floor(this.sceneWrapper.scrollTop + e.clientY);
 			this.selectedShape.shape.sX = newXPosition;
 			this.selectedShape.shape.sY = newYPosition;
 			this.render();
