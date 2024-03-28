@@ -121,3 +121,19 @@ body {
 	background: transparent url('/assets/arrow.svg') center center no-repeat;
 	background-size: contain;
 }
+
+@media screen and (max-width: 767px) {
+	.tools {
+		flex-wrap: nowrap;
+		justify-content: flex-start;
+		max-width: calc(100% - 20px);
+		right: 10px;
+		overflow: scroll;
+	}
+
+	.tools .button {
+		min-width: 100px;
+		flex: 1 1 100px;
+		margin: 0 5px;
+	}
+}
